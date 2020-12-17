@@ -1,0 +1,41 @@
+<html>
+<body>
+<script>
+    function insertionSort(arr) {
+        let j;
+        for (let i = 1; i < arr.length; i++) {
+            let current = arr[i];
+            for (j = i - 1; j >= 0 && current < arr[j]; j--) {
+                arr[j + 1] = arr[j];
+            }
+            arr[j + 1] = current;
+        }
+    }
+
+    let arr = [];
+    let value;
+    while (true) {
+        value = parseInt(prompt("input an array element"));
+
+        if (isNaN(value)) {
+            break;
+        }
+
+        arr.push(value);
+    }
+
+    if (Array.isArray(arr) && arr.length) {
+        insertionSort(arr);
+
+        let minVal = arr[0];
+        let maxVal = arr[arr.length - 1];
+
+        let sum = arr.reduce(function(sum, current) { return sum + current; });
+
+        alert(`Sorted array: ${arr.join(' ')}\nMin value: ${minVal}\nMax value: ${maxVal}\nSum of all elements: ${sum}`)
+    } else {
+        alert("No elements supplied");
+    }
+</script>
+</body>
+</html>
