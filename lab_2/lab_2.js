@@ -118,4 +118,7 @@ let studentsTableModule = (function () {
     return renderTable();
   }
 
+  return {
+    makeTable: makeTable
+  }
 })();
