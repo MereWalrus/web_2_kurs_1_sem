@@ -31,7 +31,19 @@ let studentsTableModule = (function () {
     changeAverageScore();
   }
 
+  function removeStudent(studentRow) {
+    let id = studentRow.getAttribute("rowId");
+    studentRow.remove();
 
+    for (let i = 0; i < students.length; i++) {
+      if(students[i].id == parseInt(id)) {
+        students.splice(i,1);
+        break;
+      }
+    }
+
+    changeAverageScore();
+  }
 
   function renderHeader() {
     let thead = document.createElement("thead");
@@ -52,7 +64,8 @@ let studentsTableModule = (function () {
     headerRow.appendChild(surname);
     headerRow.appendChild(age);
     headerRow.appendChild(averageScore);
-    
+    headerRow.appendChild(document.createElement("th"));
+
     thead.appendChild(headerRow);
 
     return thead;
@@ -81,6 +94,11 @@ let studentsTableModule = (function () {
     row.appendChild(age);
     row.appendChild(averageScore);
 
+    let removeButton = document.createElement("button");
+    removeButton.appendChild(document.createTextNode("Удалить"));
+    row.appendChild(removeButton);
+    removeButton.onclick = () => removeStudent(removeButton.parentNode);
+
     row.setAttribute("rowId", student.id.toString());
 
     return row;
@@ -101,8 +119,8 @@ let studentsTableModule = (function () {
 
     studentsTable.appendChild(renderHeader());
     studentsTable.appendChild(renderBody());
-
     studentsTable.setAttribute("id", "students-table");
+
     
     return studentsTable;
   }
