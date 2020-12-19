@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<meta charset="utf-8" />
+		<style>
+			table, th, td {
+			  border: 1px solid black;
+			  border-collapse: collapse;
+			}
+			table {
+				margin-top:20px;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Имя: <input type="text" id="name"></p>
+		<p>Фамилия: <input type="text" id="surname"></p>
+		<p>Возраст: <input type="number" id="age" min="0"></p>
+		<p>Средний балл: <input type="number" id="average-score" min="0"></p>
+		<button onclick="studentsTableModule.addStudent()">Добавить студента</button>
+	    <script src="lab_4.js"></script>
+
+	</body>
+</html>
