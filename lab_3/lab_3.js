@@ -13,9 +13,21 @@ let studentsTableModule = (function () {
     }
     idCounter = 0;
     for (const student of students) {
-      student["id"] = idCounter;
-      idCounter++;
+      student["id"] = idCounter++;
     }
+  }
+
+  function addStudent() {
+    let student = {
+      "name": document.querySelector('#name').value,
+      "surname": document.querySelector('#surname').value,
+      "age": document.querySelector('#age').value,
+      "avg-score": document.querySelector('#avg-score').value,
+      "id": idCounter++
+    };
+    students.push(student);
+
+    document.querySelector("#students-table").appendChild(renderStudent(student));
   }
 
   function renderHeader() {
@@ -136,7 +148,8 @@ let studentsTableModule = (function () {
 
   return {
     makeTable: makeTable,
-    computeAverageScore: computeAverageScore
+    computeAverageScore: computeAverageScore,
+    addStudent: addStudent
   }
 })();
 
