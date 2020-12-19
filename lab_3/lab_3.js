@@ -18,20 +18,6 @@ let studentsTableModule = (function () {
     }
   }
 
-  function requestStudentsJSON() {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          setStudents(JSON.parse(this.responseText));
-        }
-        else {
-          alert("Не удалось получить список студентов");
-        }
-    };
-    xhttp.open("GET", "/students.json", true);
-    xhttp.send();
-  }
-
   function renderHeader() {
     let thead = document.createElement("thead");
 
@@ -106,18 +92,34 @@ let studentsTableModule = (function () {
     return studentsTable;
   }
 
-  function makeTable(arr) {
-    requestStudentsJSON();
-    return renderTable();
-  }
+  function makeTable() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          if (this.responseText) {
+            setStudents(JSON.parse(xhttp.responseText));
+            let studentsTable = renderTable();
+            document.body.appendChild(studentsTable);
 
+            let avgScorePar = document.createElement("p");
+            avgScorePar.setAttribute("id", "avg-score")
+
+            studentsTable.parentNode.insertBefore(avgScorePar, studentsTable.nextSibling);
+
+            changeAverageScore();
+            //document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("Средний балл всех студентов: " + studentsTableModule.computeAverageScore())));
+          }
+        }
+    };
+    xhttp.open("GET", "students.json", true);
+    xhttp.send();
+  }
+  function changeAverageScore() {
+    document.querySelector("#avg-score").textContent = "Средний балл всех студентов: " + studentsTableModule.computeAverageScore();
+  }
   function computeAverageScore() {
     let studentsTable = document.querySelector("#students-table");
     let scores = studentsTable.querySelectorAll("tbody > tr > td.average-score-cell");
-
-    if (!scores.length) {
-      return 0;
-    }
 
     let scoresSum = 0;
     let validScoresNumber = 0;
@@ -129,7 +131,7 @@ let studentsTableModule = (function () {
       }
     }
 
-    return scoresSum / validScoresNumber;
+    return validScoresNumber ? scoresSum / validScoresNumber : 0;
   }
 
   return {
@@ -138,6 +140,4 @@ let studentsTableModule = (function () {
   }
 })();
 
-let studentsTable = studentsTableModule.makeTable(students);
-document.body.appendChild(studentsTable);
-document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("Средний балл всех студентов: " + studentsTableModule.computeAverageScore())));
+let studentsTable = studentsTableModule.makeTable();
