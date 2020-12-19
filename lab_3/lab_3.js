@@ -102,7 +102,7 @@ let studentsTableModule = (function () {
             document.body.appendChild(studentsTable);
 
             let avgScorePar = document.createElement("p");
-            avgScorePar.setAttribute("id", "avg-score")
+            avgScorePar.setAttribute("id", "avg-score-par")
 
             studentsTable.parentNode.insertBefore(avgScorePar, studentsTable.nextSibling);
 
@@ -115,7 +115,7 @@ let studentsTableModule = (function () {
     xhttp.send();
   }
   function changeAverageScore() {
-    document.querySelector("#avg-score").textContent = "Средний балл всех студентов: " + studentsTableModule.computeAverageScore();
+    document.querySelector("#avg-score-par").textContent = "Средний балл всех студентов: " + studentsTableModule.computeAverageScore();
   }
   function computeAverageScore() {
     let studentsTable = document.querySelector("#students-table");

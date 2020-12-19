@@ -7,9 +7,18 @@
 			  border: 1px solid black;
 			  border-collapse: collapse;
 			}
+			table {
+				margin-top:20px;
+			}
 		</style>
 	</head>
 	<body>
+		<p>Имя: <input type="text" id="name"></p>
+		<p>Фамилия: <input type="text" id="surname"></p>
+		<p>Возраст: <input type="number" id="age" min="0"></p>
+		<p>Средний балл: <input type="number" id="avg-score" min="0"></p>
+		<button onclick="tableModule.addStudent()">Добавить студента</button>
+
 	    <script src="lab_3.js"></script>
 	</body>
 </html>
