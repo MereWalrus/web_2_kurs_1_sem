@@ -44,6 +44,20 @@ let studentsTableModule = (function () {
     }
   }
 
+  function requestStudentsJSON() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          setStudents(JSON.parse(this.responseText));
+        }
+        else {
+          alert("Не удалось получить список студентов");
+        }
+    };
+    xhttp.open("GET", "../data/data.json", true);
+    xhttp.send();
+  }
+
   function renderHeader() {
     let thead = document.createElement("thead");
 
@@ -118,8 +132,8 @@ let studentsTableModule = (function () {
     return studentsTable;
   }
 
-  function makeTable(arr) {
-    setStudents(arr);
+  function makeTable() {
+    requestStudentsJSON();
     return renderTable();
   }
 
@@ -150,6 +164,6 @@ let studentsTableModule = (function () {
   }
 })();
 
-let studentsTable = studentsTableModule.makeTable(students);
+let studentsTable = studentsTableModule.makeTable();
 document.body.appendChild(studentsTable);
 document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("Средний балл всех студентов: " + studentsTableModule.computeAverageScore())));
