@@ -28,7 +28,7 @@ let studentsTableModule = (function () {
           alert("Не удалось получить список студентов");
         }
     };
-    xhttp.open("GET", "students.json", true);
+    xhttp.open("GET", "/students.json", true);
     xhttp.send();
   }
 
