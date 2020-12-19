@@ -80,7 +80,7 @@ let studentsTableModule = (function () {
     name.appendChild(document.createTextNode(student.name));
     surname.appendChild(document.createTextNode(student.surname));
     age.appendChild(document.createTextNode(!isNaN(student.age) ? student.age : ""));
-    averageScore.appendChild(document.createTextNode(!isNan(student.averageScore) ? student.averageScore : ""));
+    averageScore.appendChild(document.createTextNode(!isNaN(student.averageScore) ? student.averageScore : ""));
 
     row.appendChild(name);
     row.appendChild(surname);
@@ -106,7 +106,7 @@ let studentsTableModule = (function () {
     let studentsTable = document.createElement("table");
 
     studentsTable.appendChild(renderHeader());
-    studentsTtable.appendChild(renderBody());
+    studentsTable.appendChild(renderBody());
 
     studentsTable.setAttribute("id", "students-table");
     
@@ -119,6 +119,17 @@ let studentsTableModule = (function () {
   }
 
   return {
-    makeTable: makeTable
+    makeTable: makeTable,
+    sayHello: function sayHello () {
+      alert("hello");
+      return document.createElement("p").appendChild(document.createTextNode("hello"));
+    }
   }
 })();
+
+let studentsTable = studentsTableModule.makeTable(students);
+studentsTableModule.sayHello();
+document.body.appendChild(studentsTable);
+document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("hello")));
+alert("help");
+//document.body.appendChild(hello);
