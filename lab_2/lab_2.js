@@ -16,7 +16,7 @@ let students = [
     "name": "",
     "surname": "",
     "age": 20,
-    "averageScore": 10
+    "averageScore": NaN
   },
   {
     "name": "lala",
@@ -82,6 +82,11 @@ let studentsTableModule = (function () {
     age.appendChild(document.createTextNode(!isNaN(student.age) ? student.age : ""));
     averageScore.appendChild(document.createTextNode(!isNaN(student.averageScore) ? student.averageScore : ""));
 
+    name.classList.add("name-cell");
+    surname.classList.add("surname-cell");
+    age.classList.add("age-cell");
+    averageScore.classList.add("average-score-cell");
+
     row.appendChild(name);
     row.appendChild(surname);
     row.appendChild(age);
@@ -118,18 +123,33 @@ let studentsTableModule = (function () {
     return renderTable();
   }
 
+  function computeAverageScore() {
+    let studentsTable = document.querySelector("#students-table");
+    let scores = studentsTable.querySelectorAll("tbody > tr > td.average-score-cell");
+
+    if (!scores.length) {
+      return 0;
+    }
+
+    let scoresSum = 0;
+    let validScoresNumber = 0;
+    for (let i = 0; i < scores.length; i++) {
+      let n = parseFloat(scores[i].textContent);
+      if (!isNaN(n)) {
+        scoresSum += n;
+        validScoresNumber++;
+      }
+    }
+
+    return scoresSum / validScoresNumber;
+  }
+
   return {
     makeTable: makeTable,
-    sayHello: function sayHello () {
-      alert("hello");
-      return document.createElement("p").appendChild(document.createTextNode("hello"));
-    }
+    computeAverageScore: computeAverageScore
   }
 })();
 
 let studentsTable = studentsTableModule.makeTable(students);
-studentsTableModule.sayHello();
 document.body.appendChild(studentsTable);
-document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("hello")));
-alert("help");
-//document.body.appendChild(hello);
+document.body.appendChild(document.createElement("p").appendChild(document.createTextNode(studentsTableModule.computeAverageScore())));
