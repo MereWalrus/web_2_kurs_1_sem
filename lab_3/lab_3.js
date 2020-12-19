@@ -22,13 +22,16 @@ let studentsTableModule = (function () {
       "name": document.querySelector('#name').value,
       "surname": document.querySelector('#surname').value,
       "age": document.querySelector('#age').value,
-      "avg-score": document.querySelector('#avg-score').value,
+      "averageScore": document.querySelector('#average-score').value,
       "id": idCounter++
     };
     students.push(student);
 
-    document.querySelector("#students-table").appendChild(renderStudent(student));
+    document.querySelector("#students-table > tbody").appendChild(renderStudent(student));
+    changeAverageScore();
   }
+
+
 
   function renderHeader() {
     let thead = document.createElement("thead");
@@ -119,7 +122,6 @@ let studentsTableModule = (function () {
             studentsTable.parentNode.insertBefore(avgScorePar, studentsTable.nextSibling);
 
             changeAverageScore();
-            //document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("Средний балл всех студентов: " + studentsTableModule.computeAverageScore())));
           }
         }
     };
@@ -127,7 +129,7 @@ let studentsTableModule = (function () {
     xhttp.send();
   }
   function changeAverageScore() {
-    document.querySelector("#avg-score-par").textContent = "Средний балл всех студентов: " + studentsTableModule.computeAverageScore();
+    document.querySelector("#avg-score-par").innerHTML = "Средний балл всех студентов: " + computeAverageScore();
   }
   function computeAverageScore() {
     let studentsTable = document.querySelector("#students-table");
