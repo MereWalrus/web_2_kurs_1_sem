@@ -30,7 +30,9 @@ let studentsTableModule = (function () {
   let students = []
 
   function setStudents(arr) {
-    students = arr.slice();
+    if (Array.isArray(arr) && arr.length) {
+      students = arr.slice();
+    }
   }
 
   function renderHeader() {
@@ -56,5 +58,13 @@ let studentsTableModule = (function () {
     thead.appendChild(headerRow);
 
     return thead;
+  }
+
+  function renderBody() {
+    let tbody = document.createElement("tbody");
+
+    for (const student of students) {
+      tbody.appendChild(renderStudent(student));
+    }
   }
 })();
