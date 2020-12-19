@@ -28,10 +28,19 @@ let students = [
 
 let studentsTableModule = (function () {
   let students = []
+  let idCounter = 0;
 
   function setStudents(arr) {
-    if (Array.isArray(arr) && arr.length) {
+    if (Array.isArray(arr)) {
       students = arr.slice();
+    }
+    else {
+      students = [];
+    }
+    idCounter = 0;
+    for (const student of students) {
+      student["id"] = idCounter;
+      idCounter++;
     }
   }
 
