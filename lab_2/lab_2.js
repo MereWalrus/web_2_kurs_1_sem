@@ -1,26 +1,26 @@
 "use strict";
 let students = [
   {
-    "name": "asdf",
-    "surname": "llll",
-    "age": 12,
+    "name": "Гавриил",
+    "surname": "Лановой",
+    "age": 17,
     "averageScore": 7
   },
   {
-    "name": "asdfdd",
-    "surname": ";'",
-    "age": 54,
-    "averageScore": 3
+    "name": "Василий",
+    "surname": "Лыткин",
+    "age": 28,
+    "averageScore": 10
   },
   {
-    "name": "",
-    "surname": "",
-    "age": 20,
-    "averageScore": NaN
+    "name": "Антон",
+    "surname": "Селиверстов",
+    "age": 18,
+    "averageScore": 8
   },
   {
-    "name": "lala",
-    "surname": "",
+    "name": "Чеслав",
+    "surname": "Недбайло",
     "age": 19,
     "averageScore": 5
   }
@@ -152,4 +152,4 @@ let studentsTableModule = (function () {
 
 let studentsTable = studentsTableModule.makeTable(students);
 document.body.appendChild(studentsTable);
-document.body.appendChild(document.createElement("p").appendChild(document.createTextNode(studentsTableModule.computeAverageScore())));
+document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("Средний балл всех студентов: " + studentsTableModule.computeAverageScore())));
