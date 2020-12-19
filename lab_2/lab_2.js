@@ -40,10 +40,10 @@ let studentsTableModule = (function () {
 
     let headerRow = document.createElement("tr");
 
-    let name = document.createElement("td");
-    let surname = document.createElement("td");
-    let age = document.createElement("td");
-    let averageScore = document.createElement("td");
+    let name = document.createElement("th");
+    let surname = document.createElement("th");
+    let age = document.createElement("th");
+    let averageScore = document.createElement("th");
 
     name.appendChild(document.createTextNode("Имя"));
     surname.appendChild(document.createTextNode("Фамилия"));
@@ -60,11 +60,37 @@ let studentsTableModule = (function () {
     return thead;
   }
 
+  function renderStudent(student) {
+    let row = document.createElement("tr");
+
+    let name = document.createElement("td");
+    let surname = document.createElement("td");
+    let age = document.createElement("td");
+    let averageScore = document.createElement("td");
+
+    name.appendChild(document.createTextNode(student.name));
+    surname.appendChild(document.createTextNode(student.surname));
+    age.appendChild(document.createTextNode(!isNaN(student.age) ? student.age : ""));
+    averageScore.appendChild(document.createTextNode(!isNan(student.averageScore) ? student.averageScore : ""));
+
+    row.appendChild(name);
+    row.appendChild(surname);
+    row.appendChild(age);
+    row.appendChild(averageScore);
+
+    row.setAttribute("rowId", student.id.toString());
+
+    return row;
+  }
+
   function renderBody() {
     let tbody = document.createElement("tbody");
 
-    for (const student of students) {
-      tbody.appendChild(renderStudent(student));
+    for (let i = 0; i < students.length; i++) {
+      tbody.appendChild(renderStudent(students[i]));
     }
+
+    return tbody;
   }
+
 })();
