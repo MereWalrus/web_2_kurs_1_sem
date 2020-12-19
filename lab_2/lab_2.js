@@ -109,8 +109,13 @@ let studentsTableModule = (function () {
     studentsTtable.appendChild(renderBody());
 
     studentsTable.setAttribute("id", "students-table");
+    
+    return studentsTable;
   }
 
-  function
+  function makeTable(arr) {
+    setStudents(arr);
+    return renderTable();
+  }
 
 })();
