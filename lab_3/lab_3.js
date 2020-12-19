@@ -1,30 +1,4 @@
 "use strict";
-let students = [
-  {
-    "name": "Гавриил",
-    "surname": "Лановой",
-    "age": 17,
-    "averageScore": 7
-  },
-  {
-    "name": "Василий",
-    "surname": "Лыткин",
-    "age": 28,
-    "averageScore": 10
-  },
-  {
-    "name": "Антон",
-    "surname": "Селиверстов",
-    "age": 18,
-    "averageScore": 8
-  },
-  {
-    "name": "Чеслав",
-    "surname": "Недбайло",
-    "age": 19,
-    "averageScore": 5
-  }
-]
 
 let studentsTableModule = (function () {
   let students = []
@@ -42,6 +16,20 @@ let studentsTableModule = (function () {
       student["id"] = idCounter;
       idCounter++;
     }
+  }
+
+  function requestStudentsJSON() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          setStudents(JSON.parse(this.responseText));
+        }
+        else {
+          alert("Не удалось получить список студентов");
+        }
+    };
+    xhttp.open("GET", "students.json", true);
+    xhttp.send();
   }
 
   function renderHeader() {
@@ -119,7 +107,7 @@ let studentsTableModule = (function () {
   }
 
   function makeTable(arr) {
-    setStudents(arr);
+    requestStudentsJSON();
     return renderTable();
   }
 
