@@ -102,4 +102,15 @@ let studentsTableModule = (function () {
     return tbody;
   }
 
+  function renderTable() {
+    let studentsTable = document.createElement("table");
+
+    studentsTable.appendChild(renderHeader());
+    studentsTtable.appendChild(renderBody());
+
+    studentsTable.setAttribute("id", "students-table");
+  }
+
+  function
+
 })();
