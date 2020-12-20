@@ -33,7 +33,7 @@ let studentsTableModule = (function () {
 
   function removeStudent(studentRow) {
     let id = $(studentRow).attr("rowId");
-    $(studentRow).remove();
+    studentRow.remove();
 
     for (let i = 0; i < students.length; i++) {
       if(students[i].id == parseInt(id)) {
@@ -63,27 +63,26 @@ let studentsTableModule = (function () {
   }
 
   function renderStudent(student) {
-    let row = document.createElement("tr");
+    let row = $("<tr></tr>");
 
     let name = $("<td></td>").text(student.name).addClass("name-cell");
     let surname = $("<td></td>").text(student.surname).addClass("surname-cell");
     let age = $("<td></td>").text(!isNaN(student.age) ? student.age : "").addClass("age-cell");
     let averageScore = $("<td></td>").text(!isNaN(student.averageScore) ? student.averageScore : "").addClass("average-score-cell");
 
-    row.append(name, surname, age, averageScore);
+    $(row).append(name, surname, age, averageScore);
 
     let removeButton = $("<button></button>");
     removeButton.text("Удалить");
     $(row).append(removeButton);
-    $(removeButton).click(() => removeStudent(removeButton.parentNode));
+    $(removeButton).click(() => removeStudent($(removeButton).parent()));
 
     $(row).attr("rowId", student.id.toString());
-
     return row;
   }
 
   function renderBody() {
-    let tbody = ("<tbody></tbody>");
+    let tbody = $("<tbody></tbody>");
 
     for (let i = 0; i < students.length; i++) {
       $(tbody).append(renderStudent(students[i]));
@@ -104,37 +103,31 @@ let studentsTableModule = (function () {
   }
 
   function makeTable() {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          if (this.responseText) {
-            setStudents(JSON.parse(xhttp.responseText));
-            let studentsTable = renderTable();
-            document.body.appendChild(studentsTable);
+    $.get("students.json", function(data) {
+          alert(data);
+          setStudents(data);
+          let studentsTable = renderTable();
+          $("body").append(studentsTable);
 
-            let avgScorePar = document.createElement("p");
-            avgScorePar.setAttribute("id", "avg-score-par")
+          let avgScorePar = $("<p></p>");
+          $(avgScorePar).attr("id", "avg-score-par")
 
-            studentsTable.parentNode.insertBefore(avgScorePar, studentsTable.nextSibling);
+          $(studentsTable).after(avgScorePar, studentsTable.nextSibling);
 
-            changeAverageScore();
-          }
-        }
-    };
-    xhttp.open("GET", "students.json", true);
-    xhttp.send();
+          changeAverageScore();
+    });
   }
   function changeAverageScore() {
     $("#avg-score-par").text("Средний балл всех студентов: " + computeAverageScore());
   }
   function computeAverageScore() {
-    let studentsTable = $("#students-table");
-    let scores = studentsTable.$("tbody > tr > td.average-score-cell");
-
+    let scores = $("#students-table td.average-score-cell");
+    alert(scores);
     let scoresSum = 0;
     let validScoresNumber = 0;
     for (let i = 0; i < scores.length; i++) {
-      let n = parseFloat(scores[i].textContent);
+      alert($(scores[i]).text());
+      let n = parseFloat($(scores[i]).text());
       if (!isNaN(n)) {
         scoresSum += n;
         validScoresNumber++;
