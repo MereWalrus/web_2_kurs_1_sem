@@ -9,14 +9,16 @@ function App() {
   };
   return (
     <table>
+      <StudentsThead />
       <Student student={student}/>
+
     </table>
   );
 }
 
 function Student(props) {
   return(
-      <tr rowId={props.student.id}>
+      <tr row-id={props.student.id}>
           <td className="name-cell">{props.student.name}</td>
           <td className="surname-cell">{props.student.surname}</td>
           <td className="age-cell">{!isNaN(props.student.age) ? props.student.age : ""}</td>
@@ -24,6 +26,20 @@ function Student(props) {
           <td><button onClick={(() => removeStudent(this.parentNode()))}>Удалить</button></td>
       </tr>
   );
+}
+
+function StudentsThead() {
+  return(
+    <thead>
+      <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Возраст</th>
+          <th>Средний балл</th>
+          <th></th>
+      </tr>
+    </thead>
+);
 }
 
 ReactDOM.render(
