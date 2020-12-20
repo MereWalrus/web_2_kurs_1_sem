@@ -1,0 +1,26 @@
+[
+    {
+      "name": "Гавриил",
+      "surname": "Лановой",
+      "age": 17,
+      "averageScore": 7
+    },
+    {
+      "name": "Василий",
+      "surname": "Лыткин",
+      "age": 28,
+      "averageScore": 10
+    },
+    {
+      "name": "Антон",
+      "surname": "Селиверстов",
+      "age": 18,
+      "averageScore": 8
+    },
+    {
+      "name": "Чеслав",
+      "surname": "Недбайло",
+      "age": 19,
+      "averageScore": 5
+    }
+  ]
