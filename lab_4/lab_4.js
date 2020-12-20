@@ -104,7 +104,6 @@ let studentsTableModule = (function () {
 
   function makeTable() {
     $.get("students.json", function(data) {
-          alert(data);
           setStudents(data);
           let studentsTable = renderTable();
           $("body").append(studentsTable);
@@ -122,11 +121,9 @@ let studentsTableModule = (function () {
   }
   function computeAverageScore() {
     let scores = $("#students-table td.average-score-cell");
-    alert(scores);
     let scoresSum = 0;
     let validScoresNumber = 0;
     for (let i = 0; i < scores.length; i++) {
-      alert($(scores[i]).text());
       let n = parseFloat($(scores[i]).text());
       if (!isNaN(n)) {
         scoresSum += n;
