@@ -59,7 +59,7 @@ function StudentsThead() {
           <th></th>
       </tr>
     </thead>
-);
+  );
 }
 
 function StudentsTbody(props) {
@@ -81,7 +81,9 @@ class StudentsTable extends React.Component {
       super(props);
 
       this.state = {
-          students: this.props.students
+          students: this.props.students,
+          addStudent: this.props.addStudent,
+          removeStudent: this.props.removeStudent
       }
   }
 
@@ -93,6 +95,20 @@ class StudentsTable extends React.Component {
           </table>
       );
   }
+}
+
+function StudentsThead() {
+  return(
+    <thead>
+      <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Возраст</th>
+          <th>Средний балл</th>
+          <th></th>
+      </tr>
+    </thead>
+  );
 }
 
 ReactDOM.render(
