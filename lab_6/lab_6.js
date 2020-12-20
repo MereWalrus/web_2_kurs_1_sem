@@ -1,18 +1,38 @@
 'use strict';
 
 function App() {
-  let student = {
-    "name": "Гавриил",
-    "surname": "Лановой",
-    "age": 17,
-    "averageScore": 7
-  };
+  let students = [
+    {
+      "name": "Гавриил",
+      "surname": "Лановой",
+      "age": 17,
+      "averageScore": 7,
+      "id": 0
+    },
+    {
+      "name": "Василий",
+      "surname": "Лыткин",
+      "age": 28,
+      "averageScore": 10,
+      "id": 1
+    },
+    {
+      "name": "Антон",
+      "surname": "Селиверстов",
+      "age": 18,
+      "averageScore": 8,
+      "id": 2
+    },
+    {
+      "name": "Чеслав",
+      "surname": "Недбайло",
+      "age": 19,
+      "averageScore": 5,
+      "id": 3
+    }
+  ]
   return (
-    <table>
-      <StudentsThead />
-      <Student student={student}/>
-
-    </table>
+    <StudentsTable students={students}/>
   );
 }
 
@@ -40,6 +60,39 @@ function StudentsThead() {
       </tr>
     </thead>
 );
+}
+
+function StudentsTbody(props) {
+  const students = props.students.map((student) => {
+    return(
+        <Student key={student.id} student={student} />
+    );
+  })
+
+  return(
+      <tbody>
+        {students}
+      </tbody>
+  );
+}
+
+class StudentsTable extends React.Component {
+  constructor(props) {
+      super(props);
+
+      this.state = {
+          students: this.props.students
+      }
+  }
+
+  render() {
+      return (
+          <table>
+            <StudentsThead />
+            <StudentsTbody students={this.state.students} />
+          </table>
+      );
+  }
 }
 
 ReactDOM.render(
